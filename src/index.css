@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Reset scroll position for new pages */
+body {
+  overflow-x: hidden;
+  scroll-position: 0 0;
+}
