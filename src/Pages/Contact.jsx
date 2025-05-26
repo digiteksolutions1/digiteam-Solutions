@@ -76,7 +76,7 @@ export default function Contact() {
     setStatus("Sending your message...");
 
     try {
-      const res = await fetch("http://localhost:3000/send-email", {
+      const res = await fetch("http://168.231.115.14:3000/send-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
