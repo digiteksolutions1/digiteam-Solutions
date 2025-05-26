@@ -6,6 +6,8 @@ import {
   EnvelopeIcon,
   ClockIcon,
   ArrowRightIcon,
+  ExclamationTriangleIcon,
+  CheckCircleIcon,
 } from "@heroicons/react/24/outline";
 
 const contactMethods = [
@@ -52,6 +54,9 @@ export default function Contact() {
   });
 
   const [status, setStatus] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -62,11 +67,13 @@ export default function Contact() {
     e.preventDefault();
 
     if (!formData.subject || !formData.name || !formData.email || !formData.message) {
-      setStatus("Please fill in all fields.");
+      setErrorMessage("Please fill in all fields.");
+      setShowErrorModal(true);
       return;
     }
 
-    setStatus("Sending...");
+    setIsLoading(true);
+    setStatus("Sending your message...");
 
     try {
       const res = await fetch("http://localhost:3000/send-email", {
@@ -78,20 +85,57 @@ export default function Contact() {
       const data = await res.json();
 
       if (res.ok) {
-        setStatus(data.message || "Email sent successfully!");
+        setStatus("Message sent successfully!");
         setFormData({ subject: "", name: "", email: "", message: "" });
         // Redirect after success
         navigate("/thankYou");
       } else {
-        setStatus(data.error || "Failed to send email.");
+        setErrorMessage(data.error || "Failed to send message. Please try again later.");
+        setShowErrorModal(true);
       }
-    } catch {
-      setStatus("Failed to send email.");
+    } catch (error) {
+      setErrorMessage("Network error. Please check your connection and try again.");
+      setShowErrorModal(true);
+    } finally {
+      setIsLoading(false);
     }
+  };
+
+  const closeErrorModal = () => {
+    setShowErrorModal(false);
+    setErrorMessage("");
   };
 
   return (
     <>
+      {/* Error Modal */}
+      {showErrorModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl p-6 max-w-md w-full">
+            <div className="flex items-start">
+              <div className="flex-shrink-0">
+                <ExclamationTriangleIcon className="h-10 w-10 text-red-500" />
+              </div>
+              <div className="ml-4">
+                <h3 className="text-lg font-medium text-gray-900">Error</h3>
+                <div className="mt-2">
+                  <p className="text-sm text-gray-600">{errorMessage}</p>
+                </div>
+                <div className="mt-4">
+                  <button
+                    type="button"
+                    className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                    onClick={closeErrorModal}
+                  >
+                    Try Again
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Hero Section */}
       <section className="relative bg-gradient-to-r from-primary to-primary-dark text-white overflow-hidden">
         <div className="absolute inset-0 opacity-10">
@@ -191,7 +235,7 @@ export default function Contact() {
                   value={formData.name}
                   onChange={handleChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
-                  placeholder="John Smith"
+                  placeholder="Ali Saif"
                   required
                 />
               </div>
@@ -209,7 +253,7 @@ export default function Contact() {
                   value={formData.email}
                   onChange={handleChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
-                  placeholder="john@example.com"
+                  placeholder="alisaif@example.com"
                   required
                 />
               </div>
@@ -227,7 +271,7 @@ export default function Contact() {
                   onChange={handleChange}
                   rows="5"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
-                  placeholder="Tell us about your accounting needs..."
+                  placeholder="Tell us about your needs..."
                   required
                 ></textarea>
               </div>
@@ -235,19 +279,28 @@ export default function Contact() {
               <div className="md:col-span-2 flex flex-col items-center space-y-2">
                 <button
                   type="submit"
-                  className="px-8 py-4 bg-primary text-white rounded-lg font-bold hover:bg-primary-dark transition-colors"
+                  className="px-8 py-4 bg-primary text-white rounded-lg font-bold hover:bg-primary-dark transition-colors flex items-center justify-center min-w-40"
+                  disabled={isLoading}
                 >
-                  Send Message
+                  {isLoading ? (
+                    <>
+                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Sending...
+                    </>
+                  ) : (
+                    "Send Message"
+                  )}
                 </button>
                 {status && (
-                  <p
-                    className={`text-sm ${status.includes("successfully")
-                      ? "text-green-600"
-                      : "text-red-600"
-                      }`}
-                  >
+                  <div className={`flex items-center text-sm ${status.includes("successfully") ? "text-green-600" : "text-gray-600"}`}>
+                    {status.includes("successfully") ? (
+                      <CheckCircleIcon className="w-5 h-5 mr-1" />
+                    ) : null}
                     {status}
-                  </p>
+                  </div>
                 )}
               </div>
             </form>

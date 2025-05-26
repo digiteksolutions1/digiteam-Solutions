@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useState, useRef, useEffect } from 'react'
 import { FiChevronDown, FiX, FiMenu } from 'react-icons/fi'
 
@@ -18,6 +18,12 @@ const Logo = () => (
 const ServicesDropdown = () => {
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef(null)
+  const location = useLocation()
+
+  // Close dropdown when route changes
+  useEffect(() => {
+    setIsOpen(false)
+  }, [location.pathname])
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -110,23 +116,6 @@ const ServicesDropdown = () => {
               </div>
             </div>
           </Link>
-          <Link
-            to="/services/sales"
-            className="block px-4 py-3 text-gray-800 hover:bg-secondary-light transition-colors duration-200 border-b border-gray-100"
-            onClick={() => setIsOpen(false)}
-          >
-            <div className="flex items-center">
-              <div className="bg-primary bg-opacity-10 p-2 rounded-lg mr-3">
-                <svg className="h-5 w-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                </svg>
-              </div>
-              <div>
-                <p className="font-medium">Marketing & Sales</p>
-                <p className="text-xs text-gray-500">Coming Soon</p>
-              </div>
-            </div>
-          </Link>
         </div>
       )}
     </div>
@@ -134,10 +123,11 @@ const ServicesDropdown = () => {
 }
 
 // NavItem Component
-const NavItem = ({ to, children }) => (
+const NavItem = ({ to, children, onClick }) => (
   <Link
     to={to}
     className="px-4 py-2 text-white hover:bg-primary-light rounded-lg transition-colors duration-200"
+    onClick={onClick}
   >
     {children}
   </Link>
@@ -146,12 +136,40 @@ const NavItem = ({ to, children }) => (
 // MobileMenu Component
 const MobileMenu = ({ isOpen, onClose }) => {
   const [openSubmenu, setOpenSubmenu] = useState(null)
+  const location = useLocation()
+
+  // Close all submenus when route changes
+  useEffect(() => {
+    setOpenSubmenu(null)
+  }, [location.pathname])
+
+  // Close menu when clicking outside (on larger mobile devices)
+  const menuRef = useRef(null)
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        onClose()
+      }
+    }
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [isOpen, onClose])
 
   return (
-    <div className={`fixed inset-0 bg-primary-dark z-50 flex flex-col transition-all duration-300 ${isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
-      <div className="container mx-auto px-6 py-4">
+    <div 
+      ref={menuRef}
+      className={`fixed inset-0 bg-primary-dark z-50 flex flex-col transition-all duration-300 transform ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
+      style={{ display: isOpen ? 'flex' : 'none' }}
+    >
+      <div className="container mx-auto px-6 py-4 flex-1 overflow-y-auto">
         <div className="flex justify-between items-center border-b border-primary-light pb-4">
-          <Link to='/'>
+          <Link to='/' onClick={onClose}>
             <Logo />
           </Link>
           <button onClick={onClose} className="text-white text-2xl p-2">
@@ -165,7 +183,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
           <div className="relative">
             <button
               onClick={() => setOpenSubmenu(openSubmenu === 'services' ? null : 'services')}
-              className="flex items-center justify-between w-full px-4 py-2 text-white rounded-lg"
+              className="flex items-center justify-between w-full px-4 py-2 text-white hover:bg-primary-light rounded-lg transition-colors duration-200"
             >
               <span>Services</span>
               <FiChevronDown className={`transition-transform duration-200 ${openSubmenu === 'services' ? 'rotate-180' : ''}`} />
@@ -210,9 +228,11 @@ const MobileMenu = ({ isOpen, onClose }) => {
           <NavItem to="/contact" onClick={onClose}>Contact</NavItem>
         </div>
 
-        <button className="w-full mt-4 px-6 py-3 bg-white text-primary-DEFAULT rounded-lg font-medium hover:bg-opacity-90 transition-colors duration-200">
-          Get Started
-        </button>
+        <Link to="/careers" onClick={onClose}>
+          <button className="w-full mt-4 px-6 py-3 bg-white text-primary-DEFAULT rounded-lg font-medium hover:bg-opacity-90 transition-colors duration-200">
+            Get Started
+          </button>
+        </Link>
       </div>
     </div>
   )
@@ -221,11 +241,17 @@ const MobileMenu = ({ isOpen, onClose }) => {
 // Main Navbar Component
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const location = useLocation()
+
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsMenuOpen(false)
+  }, [location.pathname])
 
   return (
     <>
       <nav className="bg-primary shadow-lg fixed w-full z-40">
-        <div className="container mx-auto px-6 py-3">
+        <div className="container mx-auto px-4 sm:px-6 py-3">
           <div className="flex items-center justify-between">
             {/* Logo */}
             <Link to='/'>
@@ -233,14 +259,14 @@ export default function Navbar() {
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-2">
+            <div className="hidden md:flex items-center space-x-1 lg:space-x-2">
               <NavItem to="/">Home</NavItem>
               <ServicesDropdown />
               <NavItem to="/careers">Careers</NavItem>
               <NavItem to="/about">About</NavItem>
               <NavItem to="/contact">Contact</NavItem>
               <Link to='/careers'>
-                <button className="ml-2 px-6 py-2 bg-white text-primary-DEFAULT rounded-lg font-medium hover:bg-opacity-90 transition-colors duration-200">
+                <button className="ml-2 px-4 py-2 lg:px-6 lg:py-2 bg-white text-primary-DEFAULT rounded-lg font-medium hover:bg-opacity-90 transition-colors duration-200">
                   Join Now
                 </button>
               </Link>
@@ -251,6 +277,7 @@ export default function Navbar() {
               <button
                 onClick={() => setIsMenuOpen(true)}
                 className="text-white p-2 focus:outline-none"
+                aria-label="Open menu"
               >
                 <FiMenu className="h-6 w-6" />
               </button>
