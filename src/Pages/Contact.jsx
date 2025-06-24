@@ -73,10 +73,10 @@ export default function Contact() {
     }
 
     setIsLoading(true);
-    setStatus("Sending your message...");
+    // setStatus("Sending your message...");
 
     try {
-      const res = await fetch("https://www.digiteam-solutions.com/send-email", {
+      const res = await fetch("https://digiteam-solutions.com/send-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
