@@ -63,7 +63,7 @@ const jobOpenings = [
       "Fast career growth opportunities",
       "Supportive team spirit"
     ],
-    formLink: "https://forms.gle/5ZRxgEyNUenoxd9r8"
+    formLink: "" // https://forms.gle/5ZRxgEyNUenoxd9r8
   },
   {
     id: 3,

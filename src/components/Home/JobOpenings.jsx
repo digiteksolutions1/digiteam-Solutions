@@ -28,7 +28,7 @@ const openings = [
       "VAT, CIS, Payroll, Statutory Accounts, Reconciliations,",
       "Proficient in Google Sheets/Docs"
     ],
-    formLink: "https://forms.gle/5ZRxgEyNUenoxd9r8" 
+    formLink: "" // https://forms.gle/5ZRxgEyNUenoxd9r8
   },
   {
     icon: <FaUserGraduate className="text-3xl" />,
