@@ -4,7 +4,7 @@ const MissionVision = () => (
       <div className="flex flex-col lg:flex-row gap-16 items-center">
         <div className="lg:w-1/2 bg-gray-50 rounded-xl overflow-hidden">
           <img
-            src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
+            src="/vision.webp"
             alt="Team collaboration"
             className="w-full h-auto object-cover"
           />

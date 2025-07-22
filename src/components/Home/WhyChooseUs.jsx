@@ -81,45 +81,14 @@ export default function WhyJoinUs() {
           <div className="relative">
             <div className="relative rounded-xl overflow-hidden shadow-lg">
               <img
-                src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
+                src="/janis.webp"
                 alt="Happy accounting team"
-                className="w-full h-auto object-cover aspect-video"
+                className="w-full h-auto object-cover object-[center_10%] aspect-video"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-70"></div>
             </div>
-
-            <div className="relative -mt-10 mx-6 bg-white p-6 rounded-lg shadow-lg">
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Career Development</h3>
-              <p className="text-gray-600 mb-4">
-                We support continuous learning through access to relevant courses and cover the cost of select professional certifications.
-              </p>
-              {/* <div className="flex items-center">
-                <div className="flex -space-x-2 mr-3">
-                  {["CPA", "CMA", "CFA", "MBA"].map((cert, index) => (
-                    <div key={index} className="h-8 w-8 rounded-full bg-primary border-2 border-white flex items-center justify-center text-xs font-bold text-white">
-                      {cert}
-                    </div>
-                  ))}
-                </div>
-                <span className="text-sm font-medium text-gray-700">
-                  Certifications we support
-                </span>
-              </div> */}
-            </div>
           </div>
         </div>
-
-        {/* Trust badges */}
-        {/* <div className="mt-16 pt-8 border-t border-white border-opacity-10">
-          <p className="text-center text-secondary-light mb-6">RECOGNIZED AS A TOP WORKPLACE BY</p>
-          <div className="flex flex-wrap justify-center gap-8">
-            {["Great Place to Work", "Accounting Today", "Fortune", "Glassdoor", "Forbes"].map((company, index) => (
-              <div key={index} className="text-white font-medium opacity-80 hover:opacity-100 transition-opacity">
-                {company}
-              </div>
-            ))}
-          </div>
-        </div> */}
       </div>
     </section>
   )

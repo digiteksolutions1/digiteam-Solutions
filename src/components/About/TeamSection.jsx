@@ -3,25 +3,14 @@ import React from 'react';
 const teamMembers = [
   {
     id: 1,
-    name: "Sarah Johnson",
+    name: "Janis Krekovskis",
     role: "Founder & CEO",
-    bio: "CPA with 15+ years in corporate accounting and financial strategy.",
-    image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=500&auto=format&fit=crop"
+    bio: "Janis Krekovskis is a seasoned CPA with over 15 years of experience in accounting, financial management, and strategic business advisory. He has worked extensively with multinational corporations, SMEs, and startups, helping them streamline financial operations, ensure regulatory compliance, and improve profitability. Before founding Digiteams, Janis held senior finance roles in both public and private sectors, where he led cross-border teams and implemented scalable financial systems. At Digiteams, he combines his technical expertise with a strong entrepreneurial vision to drive digital transformation in finance and operations.",
+    image: "/CEO-digiteams.webp",
+    certifications: ["CPA", "ACCA", "CFA"],
+    experience: "15+ years in corporate accounting",
+    specialties: ["Financial Strategy", "Corporate Governance", "Risk Management"]
   },
-  {
-    id: 2,
-    name: "Michael Chen",
-    role: "Director of Tax Services",
-    bio: "Tax specialist with expertise in international business taxation.",
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500&auto=format&fit=crop"
-  },
-  {
-    id: 3,
-    name: "Emily Rodriguez",
-    role: "Head of Financial Advisory",
-    bio: "Former Big 4 consultant focused on financial transformation.",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=500&auto=format&fit=crop"
-  }
 ];
 
 const TeamSection = () => (
@@ -34,21 +23,28 @@ const TeamSection = () => (
         </p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 justify-items-center">
-        {teamMembers.map((member) => (
-          <div key={member.id} className="w-full max-w-xs bg-gray-50 rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 flex flex-col">
+      {/* Unified container */}
+      <div className="bg-white rounded-2xl shadow-xl overflow-hidden max-w-6xl mx-auto">
+        <div className="flex flex-col lg:flex-row">
+          {/* Image section */}
+          <div className="lg:w-3/5 relative">
             <img
-              src={member.image}
-              alt={member.name}
-              className="w-full h-72 object-cover"
+              src={teamMembers[0].image}
+              alt={teamMembers[0].name}
+              className="w-full h-full min-h-[400px] object-cover object-top"
             />
-            <div className="p-6 flex-1 flex flex-col">
-              <h3 className="text-xl font-bold text-gray-900 mb-1">{member.name}</h3>
-              <p className="text-indigo-600 mb-3">{member.role}</p>
-              <p className="text-gray-600 text-sm">{member.bio}</p>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/10 to-transparent"></div>
+          </div>
+
+          {/* Content section */}
+          <div className="lg:w-3/5 p-8 lg:p-12 items-center">
+            <div className="mb-6">
+              <h3 className="text-3xl font-bold text-gray-900 mb-2">{teamMembers[0].name}</h3>
+              <p className="text-indigo-600 text-xl font-medium mb-4">{teamMembers[0].role}</p>
+              <p className="text-gray-600 mb-6">{teamMembers[0].bio}</p>
             </div>
           </div>
-        ))}
+        </div>
       </div>
     </div>
   </section>
