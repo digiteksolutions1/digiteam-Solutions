@@ -5,7 +5,7 @@ const teamMembers = [
     id: 1,
     name: "Janis Krekovskis",
     role: "Founder & CEO",
-    bio: "Janis Krekovskis is a seasoned CPA with over 15 years of experience in accounting, financial management, and strategic business advisory. He has worked extensively with multinational corporations, SMEs, and startups, helping them streamline financial operations, ensure regulatory compliance, and improve profitability. Before founding Digiteams, Janis held senior finance roles in both public and private sectors, where he led cross-border teams and implemented scalable financial systems. At Digiteams, he combines his technical expertise with a strong entrepreneurial vision to drive digital transformation in finance and operations.",
+    bio: "Hi, I’m Janis but most people know me as a Productivity Guy. I guess it’s because I run a YouTube Channel called Productivity Guy with over 100 000 Subscribers and I have been privileged to touch more than 13 million people’s lives to become more productive and achieve their goals. Of course, that did not happen overnight. I started creating content about productivity back in 2016 and slowly but steadily I was growing my reach and audience.\n\nDuring my years of research, I discovered and established a new way of setting goals. I call this new goal-setting principle – Effort Goals. In today’s busy world everyone seems to be only focused on results. And don’t get me wrong, I think it’s good to focus on results, but I have found that this statement always holds true – Results will always follow the effort and not the other way around. The truth is that without effort there will be no results and this philosophy is at the very foundation of setting Effort Goals.\n\nI highly value location independence and that’s why I keep my business online as it allows me to work, travel and explore at the same time.",
     image: "/CEO-digiteams.webp",
     certifications: ["CPA", "ACCA", "CFA"],
     experience: "15+ years in corporate accounting",
@@ -41,7 +41,14 @@ const TeamSection = () => (
             <div className="mb-6">
               <h3 className="text-3xl font-bold text-gray-900 mb-2">{teamMembers[0].name}</h3>
               <p className="text-indigo-600 text-xl font-medium mb-4">{teamMembers[0].role}</p>
-              <p className="text-gray-600 mb-6">{teamMembers[0].bio}</p>
+              <p className="text-gray-600 mb-6">
+                {teamMembers[0].bio.split('\n').map((line, i) => (
+                  <React.Fragment key={i}>
+                    {line}
+                    <br />
+                  </React.Fragment>
+                ))}
+              </p>
             </div>
           </div>
         </div>
