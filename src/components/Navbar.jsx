@@ -162,10 +162,15 @@ const MobileMenu = ({ isOpen, onClose }) => {
   }, [isOpen, onClose])
 
   return (
-    <div 
+    <div
       ref={menuRef}
-      className={`fixed inset-0 bg-primary-dark z-50 flex flex-col transition-all duration-300 transform ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
-      style={{ display: isOpen ? 'flex' : 'none' }}
+      className={`fixed inset-0 bg-primary-dark z-50 flex flex-col transition-all duration-300 transform ${isOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      style={{
+        display: isOpen ? 'flex' : 'none',
+        // top: '80px', // Adjust this value to match your navbar height
+        height: 'calc(50vh - 80px)' // Adjust to match navbar height
+      }}
     >
       <div className="container mx-auto px-6 py-4 flex-1 overflow-y-auto">
         <div className="flex justify-between items-center border-b border-primary-light pb-4">
@@ -250,7 +255,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="bg-primary shadow-lg fixed w-full z-40">
+      <nav className="bg-primary shadow-lg fixed w-full z-40 top-0 left-0">
         <div className="container mx-auto px-4 sm:px-6 py-3">
           <div className="flex items-center justify-between">
             {/* Logo */}

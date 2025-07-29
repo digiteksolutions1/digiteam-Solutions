@@ -72,7 +72,7 @@ export default function FutureRoles() {
     <section className="py-20 bg-gray-50">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <motion.span 
+          {/* <motion.span 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
@@ -80,7 +80,7 @@ export default function FutureRoles() {
             className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary font-medium mb-4"
           >
             Emerging Opportunities
-          </motion.span>
+          </motion.span> */}
           <motion.h2 
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}

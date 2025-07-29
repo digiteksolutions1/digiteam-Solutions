@@ -113,9 +113,6 @@ export default function JobOpenings() {
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-3">
-            Careers
-          </span>
           <h2 className="text-3xl font-bold text-gray-900 mb-3">
             Join Our <span className="text-primary">Accounting Team</span>
           </h2>

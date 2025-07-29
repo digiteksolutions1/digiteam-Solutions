@@ -3,15 +3,15 @@ import { Link } from 'react-router-dom';
 
 export default function HeroSection() {
   return (
-    <section className="relative bg-gradient-to-r from-primary to-primary-dark text-white overflow-hidden">
+    <section className="relative bg-gradient-to-r from-primary to-primary-dark text-white overflow-hidden min-h-[950px] flex items-center justify-center mt-16">
       {/* Background elements */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-0 right-0 w-1/3 h-full bg-white transform skew-x-12 -translate-x-1/2"></div>
         <div className="absolute bottom-0 left-0 w-2/5 h-1/2 bg-secondary-light rounded-full filter blur-3xl"></div>
       </div>
 
-      <div className="container mx-auto px-6 py-28 relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
+      <div className="container mx-auto px-6 py-28 relative z-10 text-center">
+        <div className="max-w-4xl mx-auto">
           {/* Pre-header */}
           <div className="inline-flex items-center px-4 py-2 rounded-full bg-white bg-opacity-10 backdrop-blur-sm mb-6">
             <span className="text-secondary-light font-medium">Loved by Our Small but Mighty Team</span>

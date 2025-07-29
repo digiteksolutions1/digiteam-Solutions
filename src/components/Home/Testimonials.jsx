@@ -29,9 +29,6 @@ export default function EmployeeTestimonials() {
     <section className="py-24 bg-gradient-to-b from-gray-50 to-white">
       <div className="container mx-auto px-6">
         <div className="text-center mb-20">
-          <span className="inline-block px-5 py-2 text-sm font-medium text-primary rounded-full bg-primary/10 mb-4">
-            Our Team's Voice
-          </span>
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
             Hear From <span className="text-primary">Our Employees</span>
           </h2>

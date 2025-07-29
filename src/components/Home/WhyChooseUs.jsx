@@ -37,9 +37,6 @@ export default function WhyJoinUs() {
     <section className="py-20 bg-primary text-white">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <span className="inline-block px-4 py-2 rounded-full bg-white bg-opacity-10 text-white font-medium mb-4">
-            Employee Benefits
-          </span>
           <h2 className="text-4xl font-bold mb-6">
             Why <span className="text-secondary">Top Talent</span> Chooses Us
           </h2>
@@ -48,7 +45,7 @@ export default function WhyJoinUs() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="">
           {/* Benefits grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {benefits.map((benefit, index) => (
@@ -78,7 +75,7 @@ export default function WhyJoinUs() {
           </div>
 
           {/* Image/content block */}
-          <div className="relative">
+          {/* <div className="relative">
             <div className="relative rounded-xl overflow-hidden shadow-lg">
               <img
                 src="/janis.webp"
@@ -87,7 +84,7 @@ export default function WhyJoinUs() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-70"></div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>
